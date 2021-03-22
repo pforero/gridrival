@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.venvPath": "C:\\ProgramData\\Anaconda3\\envs\\gridrival\\python.exe",
+		"jupyter.jupyterServerType": "local",
+		"cSpell.ignoreWords": [
+			"Bottas",
+			"Ricciardo",
+			"Alonso",
+			"Leclerc",
+			"Sainz",
+			"Gasly",
+			"Ocon",
+			"Raikkonen",
+			"Tsunoda",
+			"Giovinazzi",
+			"Latifi",
+			"Laren",
+			"Tauri",
+			"itertools"
+		]
+	}
+}
