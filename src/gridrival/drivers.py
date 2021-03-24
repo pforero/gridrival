@@ -3,10 +3,11 @@
 from pandas import Series
 
 from gridrival.probabilities import DriverProbabilities
+from gridrival.probabilities.completion import CompletionProbabilities, COMPLETE_RACE
 from gridrival.scoring import LeagueScoring
 
 
-DefaultProbability = DriverProbabilities(Series(1 / 20, index=range(1, 21)))
+DEFAULT_PROBABILITY = DriverProbabilities(Series(1 / 20, index=range(1, 21)))
 
 
 class Driver:
@@ -31,12 +32,20 @@ class Driver:
         Cost of the Driver in the fantansy league.
     team: Team
         Team in which the Driver belongs.
-    probabilities: Series
+    probabilities: DriverProbabilities
         Probabilities for where the Driver will finish in the next race.
+    completion_prob: CompletionProbabilities
+        Probabilities for completing the race.
 
     Methods
     -------
-    expected_points
+    qualifying_points
+        Expected points earned from qualifying.
+    race_points
+        Expected points earned from the race.
+    completion_points
+        Expected points from race completion.
+    points
         Expected points earned by the Driver.
     """
 
@@ -44,14 +53,16 @@ class Driver:
         self,
         name: str,
         cost: int,
-        probabilities: DriverProbabilities = DefaultProbability,
+        probabilities: DriverProbabilities = DEFAULT_PROBABILITY,
+        completion: CompletionProbabilities = COMPLETE_RACE,
     ) -> None:
 
         self.name = name
         self.cost = cost
         self.probabilities = probabilities
+        self.completion_prob = completion
 
-    def expected_qualifying_points(self, team=False) -> float:
+    def qualifying_points(self, team=False) -> float:
         """Expected points earned from qualifying.
 
         The expected points from qualification for driver and team points.
@@ -75,10 +86,10 @@ class Driver:
 
         return sum(self.probabilities.qual * scoring)
 
-    def expected_race_points(self, team=False) -> float:
+    def race_points(self, team=False) -> float:
         """Expected points earned from the race.
 
-        The expected points from the race for driver and team points.
+        The expected points from the race stage for driver and team points.
 
         Parameters
         ----------
@@ -99,7 +110,20 @@ class Driver:
 
         return sum(self.probabilities.race * scoring)
 
-    def expected_points(self, team=False) -> float:
+    def completion_points(self, team=False) -> float:
+        """Expected points from race completion.
+
+        Race completion is the percentile of the race completed by the driver.
+
+        Returns
+        -------
+        return: float
+            Expected points earned by the driver from race completion.
+        """
+
+        return sum(self.completion_prob * LeagueScoring.Driver.COMPLETION)
+
+    def points(self, team=False) -> float:
         """Total expected points.
 
         The expected points from the race for driver and team points.
@@ -117,11 +141,14 @@ class Driver:
 
         Returns
         -------
-        return: float
+        points: float
             Expected points earned by the driver for a whole race.
         """
 
-        return self.expected_qualifying_points(team) + self.expected_race_points(team)
+        points = self.expected_qualifying_points(team) + self.expected_race_points(team)
+
+        if team is False:
+            points = points + self.completion_points()
 
     def __eq__(self, driver: "Driver") -> bool:
         "Compare if two Drivers are the same Driver."

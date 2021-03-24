@@ -37,7 +37,7 @@ class FantasyTeam:
     -------
     cost
         Calculate total cost of Fantasy Team.
-    expected_points
+    points
         Expected points earned by the Fantasy Team in the race.
     """
 
@@ -62,7 +62,7 @@ class FantasyTeam:
 
         return sum(driver.cost for driver in self.drivers) + self.team.cost
 
-    def expected_points(self) -> float:
+    def points(self) -> float:
         """Expected points earned by the Fantasy Team in the race.
 
         Creates the total expected points of all the drivers and the team for the race.
@@ -74,9 +74,9 @@ class FantasyTeam:
         """
 
         return (
-            sum(driver.expected_points() for driver in self.drivers)
-            + self.team.expected_points()
-            + self.talent_driver.expected_points()
+            sum(driver.points() for driver in self.drivers)
+            + self.team.points()
+            + self.talent_driver.points()
         )
 
     def _find_talent_driver(self) -> Driver:

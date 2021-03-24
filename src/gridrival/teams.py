@@ -43,7 +43,7 @@ class Team:
 
     Methods
     -------
-    expected_points
+    points
         Expected team points earned by the Team.
     """
 
@@ -59,7 +59,7 @@ class Team:
         driver_1.team = self
         driver_2.team = self
 
-    def expected_qualifying_points(self) -> float:
+    def qualifying_points(self) -> float:
         """Expected team points earned from qualifying.
 
         The expected team points from qualification for both Team Drivers.
@@ -70,11 +70,12 @@ class Team:
             Expected points earned by the Drivers in the qualifying stage.
         """
 
-        return self.driver_1.expected_qualifying_points(
-            team=True
-        ) + self.driver_2.expected_qualifying_points(team=True)
+        return (
+            self.driver_1.qualifying_points(team=True)
+            + self.driver_2.qualifying_points(team=True)
+        )
 
-    def expected_race_points(self) -> float:
+    def race_points(self) -> float:
         """Expected team points earned from the race stage.
 
         The expected team points from the race stage for both Team Drivers.
@@ -85,11 +86,12 @@ class Team:
             Expected points earned by the Drivers in the race stage.
         """
 
-        return self.driver_1.expected_race_points(
-            team=True
-        ) + self.driver_2.expected_race_points(team=True)
+        return (
+            self.driver_1.race_points(team=True)
+            + self.driver_2.race_points(team=True)
+        )
 
-    def expected_points(self) -> float:
+    def points(self) -> float:
         """Expected team points earned from the race.
 
         The expected team points from the race for both Team Drivers.
@@ -100,9 +102,7 @@ class Team:
             Expected points earned by the Drivers in the race.
         """
 
-        return self.driver_1.expected_points(team=True) + self.driver_2.expected_points(
-            team=True
-        )
+        return self.driver_1.points(team=True) + self.driver_2.points(team=True)
 
     def __contains__(self, driver: Driver) -> bool:
         "A Team contains a Driver if it is one of its two Drivers."
