@@ -5,8 +5,11 @@
 		}
 	],
 	"settings": {
-		"python.venvPath": "C:\\ProgramData\\Anaconda3\\envs\\gridrival\\python.exe",
+		"python.pythonPath": "/Users/pablof/anaconda3/bin/python",
 		"jupyter.jupyterServerType": "local",
+		"cSpell.userWords": [
+			"gridrival"
+		],
 		"cSpell.ignoreWords": [
 			"Bottas",
 			"Ricciardo",
@@ -21,7 +24,12 @@
 			"Latifi",
 			"Laren",
 			"Tauri",
-			"itertools"
+			"itertools",
+			"Verstappen",
+			"Perez",
+			"Haas",
+			"prob",
+			"qual"
 		]
 	}
 }
