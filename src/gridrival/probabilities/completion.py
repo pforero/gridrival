@@ -16,8 +16,8 @@ class CompletionProbabilities:
         Probabilities of winning a quartile of the race.
     """
 
-    def __ini__(self, prob: Series) -> None:
+    def __init__(self, prob: Series) -> None:
         self.probabilities = prob
 
 
-COMPLETE_RACE = CompletionProbabilities(Series(1, index=range(1,4)))
+COMPLETE_RACE = CompletionProbabilities(Series(1, index=range(1,5)))

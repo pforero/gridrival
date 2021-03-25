@@ -121,7 +121,7 @@ class Driver:
             Expected points earned by the driver from race completion.
         """
 
-        return sum(self.completion_prob * LeagueScoring.Driver.COMPLETION)
+        return sum(self.completion_prob.probabilities * LeagueScoring.Driver.COMPLETION)
 
     def points(self, team=False) -> float:
         """Total expected points.
@@ -145,10 +145,12 @@ class Driver:
             Expected points earned by the driver for a whole race.
         """
 
-        points = self.expected_qualifying_points(team) + self.expected_race_points(team)
+        points = self.qualifying_points(team) + self.race_points(team)
 
         if team is False:
             points = points + self.completion_points()
+        
+        return points
 
     def __eq__(self, driver: "Driver") -> bool:
         "Compare if two Drivers are the same Driver."
