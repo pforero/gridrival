@@ -28,6 +28,20 @@ class DriverProbabilities:
             self.qual = race
         else:
             self.qual = qual
+    
+    def overtake_probabilities(self) -> DataFrame:
+        """Create a matrix of overtake probabilities.
+
+        Transform the qualification and race probabilities into a matrix(M,N) with the
+        probabilities that the driver qualifies in m position and finishes the race in
+        nth position.
+
+        Returns
+        -------
+        return: DataFrame
+            Matrix of probabilities of overtake positions.
+        """
+        return DataFrame(self.qual).dot(DataFrame(self.race).T)
 
 
 class GridProbabilities:

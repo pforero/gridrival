@@ -58,9 +58,10 @@ class WinningOdds:
         """
 
         df = pd.DataFrame(
-            0, index=self.probabilities.index, columns=range(1, len(self.odds) + 1)
+            0,
+            index=self.odds.index, columns=range(1, len(self.odds) + 1)
         )
-        df[1] = self.probabilities
+        df[1] = self.probabilities()
 
         for i in range(1, len(self.odds) - 1):
             past_prob = df.sum(axis=1)
