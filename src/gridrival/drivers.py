@@ -1,14 +1,11 @@
 "F1 Drivers."
 import copy
-from os import name
 
-from pandas import Series
-from pandas.core.frame import DataFrame
+from pandas import DataFrame, Series
 
 from gridrival.probabilities import DriverProbabilities
-from gridrival.probabilities.completion import CompletionProbabilities, COMPLETE_RACE
+from gridrival.probabilities.completion import COMPLETE_RACE, CompletionProbabilities
 from gridrival.scoring import LeagueScoring
-
 
 DEFAULT_PROBABILITY = DriverProbabilities(Series(1 / 20, index=range(1, 21)))
 

@@ -1,2 +1,2 @@
 # gridrival
-Quantitative Model for optimization of team in grid rival
+Quantitative Model for optimization of fantasy team in Grid Rival.

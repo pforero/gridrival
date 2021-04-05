@@ -1,11 +1,7 @@
 "Roaster for a Fantasy Team."
-
 from typing import Tuple
 
-import pandas as pd
-
 from gridrival.drivers import FixedInfo
-from gridrival.probabilities import DriverProbabilities
 
 EmptyDriver = FixedInfo("EMPTY_DRIVER", 0, 0)
 TALENT_DRIVER_COST = 18 * 1e6

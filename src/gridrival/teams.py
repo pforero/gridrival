@@ -1,16 +1,17 @@
 "F1 Teams"
 
 from gridrival.drivers import (
-    Driver,
-    FixedInfo,
     AGiovinazzi,
     CLeclerc,
     CSainz,
     DRicciardo,
+    Driver,
     EOcon,
     FAlonso,
+    FixedInfo,
     GRUssell,
     KRaikkonen,
+    LHamilton,
     LNorris,
     LStroll,
     MSchumacher,
@@ -21,7 +22,6 @@ from gridrival.drivers import (
     SPerez,
     SVettel,
     VBottas,
-    LHamilton,
     YTsunoda,
 )
 

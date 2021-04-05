@@ -3,7 +3,6 @@
 import pandas as pd
 from pandas.core.series import Series
 
-
 empty_grid = pd.DataFrame(0, index=range(1, 21), columns=range(1, 21))
 
 
