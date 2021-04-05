@@ -1,6 +1,6 @@
 "Optimization for Best F1 Team."
 from itertools import combinations, product
-from typing import List
+from typing import List, Union
 
 from pandas import DataFrame
 
@@ -31,8 +31,8 @@ class BasicSolver:
         self,
         drivers: List[FixedInfo],
         teams: List[FixedInfo],
-        in_constraint: List[Driver, Team],
-        out_constraint: List[Driver, Team],
+        in_constraint: List[Union[Driver, Team]],
+        out_constraint: List[Union[Driver, Team]],
         budget: int,
     ) -> None:
 
