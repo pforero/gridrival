@@ -58,8 +58,7 @@ class WinningOdds:
         """
 
         df = pd.DataFrame(
-            0,
-            index=self.odds.index, columns=range(1, len(self.odds) + 1)
+            0, index=self.odds.index, columns=range(1, len(self.odds) + 1)
         )
         df[1] = self.probabilities()
 
@@ -99,25 +98,25 @@ class WinningOdds:
 
 
 TOP_1 = {
-    "L. Hamilton": 2.62,
-    "M. Verstappen": 2.37,
-    "V. Bottas": 7,
-    "S. Perez": 8,
-    "D. Ricciardo": 29,
-    "L. Norris": 51,
-    "P. Gasly": 81,
-    "S. Vettel": 101,
-    "L. Stroll": 101,
+    "L. Hamilton": 2.25,
+    "M. Verstappen": 2.25,
+    "V. Bottas": 7.5,
+    "S. Perez": 11,
+    "D. Ricciardo": 41,
+    "L. Norris": 41,
+    "P. Gasly": 67,
+    "S. Vettel": 151,
+    "L. Stroll": 151,
     "C. Leclerc": 101,
-    "F. Alonso": 126,
-    "C. Sainz Jr": 126,
-    "E. Ocon": 151,
-    "Y. Tsunoda": 151,
-    "G. Russell": 501,
-    "K. Raikkonen": 751,
+    "F. Alonso": 151,
+    "C. Sainz Jr": 67,
+    "E. Ocon": 201,
+    "Y. Tsunoda": 101,
+    "G. Russell": 1001,
+    "K. Raikkonen": 1001,
     "A. Giovinazzi": 1001,
-    "N. Latifi": 3001,
-    "M. Schumacher": 3001,
+    "N. Latifi": 2001,
+    "M. Schumacher": 4001,
     "N. Mazepin": 3001,
 }
 

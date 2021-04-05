@@ -28,7 +28,7 @@ class DriverProbabilities:
             self.qual = race
         else:
             self.qual = qual
-    
+
     def overtake_probabilities(self) -> DataFrame:
         """Create a matrix of overtake probabilities.
 

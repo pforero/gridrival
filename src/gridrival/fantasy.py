@@ -4,13 +4,10 @@ from typing import Tuple
 
 import pandas as pd
 
-from gridrival.drivers import Driver
+from gridrival.drivers import FixedInfo
 from gridrival.probabilities import DriverProbabilities
-from gridrival.teams import Team
 
-EmptyDriver = Driver(
-    "EMPTY_DRIVER", 0, DriverProbabilities(pd.Series(0, index=range(1, 21)))
-)
+EmptyDriver = FixedInfo("EMPTY_DRIVER", 0, 0)
 TALENT_DRIVER_COST = 18 * 1e6
 
 
@@ -26,11 +23,11 @@ class FantasyTeam:
 
     Attributes
     ----------
-    drivers: list of Driver
+    drivers: list of FixedInfo
         The roaster of selected Drivers.
-    team: Team
+    team: FixedInfo
         The selected team.
-    talent_driver: Driver
+    talent_driver: FixedInfo
         Driver whose cost is below 18M and whose points are awarded double.
 
     Methods
@@ -42,7 +39,9 @@ class FantasyTeam:
     """
 
     def __init__(
-        self, drivers: Tuple[Driver, Driver, Driver, Driver, Driver], team: Team
+        self,
+        drivers: Tuple[FixedInfo, FixedInfo, FixedInfo, FixedInfo, FixedInfo],
+        team: FixedInfo,
     ):
 
         self.drivers = drivers
@@ -74,27 +73,33 @@ class FantasyTeam:
         """
 
         return (
-            sum(driver.points() for driver in self.drivers)
-            + self.team.points()
-            + self.talent_driver.points()
+            sum(driver.points for driver in self.drivers)
+            + self.team.points
+            + self.talent_driver.points
         )
 
-    def _find_talent_driver(self) -> Driver:
-        "Find the highest cost Driver with cost below 18M."
+    def _find_talent_driver(self) -> FixedInfo:
+        "Find the highest point Driver with cost below 18M."
 
-        drivers_cost = [
-            driver.cost for driver in self.drivers if driver.cost <= TALENT_DRIVER_COST
+        drivers_points = [
+            driver.points
+            for driver in self.drivers
+            if driver.cost <= TALENT_DRIVER_COST
         ]
 
         try:
-            max_cost = max(drivers_cost)
+            max_points = max(drivers_points)
         except ValueError:
             return EmptyDriver
         else:
             talent_driver = [
-                driver for driver in self.drivers if driver.cost == max_cost
+                driver for driver in self.drivers if driver.points == max_points
             ]
             return talent_driver[0]
+
+    def __contains__(self, fixed: FixedInfo) -> bool:
+        "A Fantasy Teams contains a Team or Driver in the Fantasy Team."
+        return (fixed in self.drivers) or (self.team == fixed)
 
     def __repr__(self) -> str:
         return str([self.drivers, self.team, self.talent_driver])

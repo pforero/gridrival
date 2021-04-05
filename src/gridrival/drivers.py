@@ -1,5 +1,6 @@
 "F1 Drivers."
 import copy
+from os import name
 
 from pandas import Series
 from pandas.core.frame import DataFrame
@@ -10,6 +11,31 @@ from gridrival.scoring import LeagueScoring
 
 
 DEFAULT_PROBABILITY = DriverProbabilities(Series(1 / 20, index=range(1, 21)))
+
+
+class FixedInfo:
+    """Fixed info.
+
+    Save Name, Cost and Points as a dictionary for more efficient optimization.
+
+    Attributes
+    ----------
+    name: str
+        Name of Driver or Team.
+    cost: float
+        Cost of Driver or Team.
+    points: float
+        Expected points of Driver or Team.
+    """
+
+    def __init__(self, name: str, cost: float, points: float) -> None:
+
+        self.name = name
+        self.cost = cost
+        self.points = points
+
+    def __repr__(self) -> str:
+        return self.name
 
 
 class Driver:
@@ -128,7 +154,7 @@ class Driver:
         """
 
         return sum(self.completion_prob.probabilities * LeagueScoring.Driver.COMPLETION)
-    
+
     def overtake_points(self) -> float:
         """Expected points from overtaking.
 
@@ -142,9 +168,14 @@ class Driver:
         """
 
         return (
-            self.probabilities.overtake_probabilities() * LeagueScoring.Driver.OVERTAKE
-        ).sum().sum()
-    
+            (
+                self.probabilities.overtake_probabilities()
+                * LeagueScoring.Driver.OVERTAKE
+            )
+            .sum()
+            .sum()
+        )
+
     def beat_teammate_points(self) -> float:
         """Expected points from beating the other team mate.
 
@@ -175,9 +206,9 @@ class Driver:
             Expected points earned by the driver from personal improvement.
         """
 
-        pos_improve = self.rank - Series(range(1,21), range(1,21))
+        pos_improve = self.rank - Series(range(1, 21), range(1, 21))
         points_improve = LeagueScoring.Driver.PERSONAL_IMPROVEMENT.loc[pos_improve]
-        points_improve.index = range(1,21)
+        points_improve.index = range(1, 21)
 
         expected_points = self.probabilities.race * points_improve
 
@@ -214,8 +245,13 @@ class Driver:
                 + self.beat_teammate_points()
                 + self.personal_improvement_points()
             )
-        
+
         return points
+
+    def to_fixed_info(self) -> FixedInfo:
+        "Fix Driver info for easy optimization."
+
+        return FixedInfo(name=self.name, cost=self.cost, points=self.points())
 
     def other_teammate(self):
         "Get the other team mate."
@@ -228,11 +264,11 @@ class Driver:
         prob_driver = self.probabilities.race
         prob_teammate = self.other_teammate().probabilities.race
 
-        df = DataFrame(0, index=range(1,21), columns=range(1,21))
+        df = DataFrame(0, index=range(1, 21), columns=range(1, 21))
         for pos, prob in prob_driver.items():
             conditional_prob = copy.copy(prob_teammate)
             conditional_prob[pos] = 0
-            norm_prob = (conditional_prob * prob)/sum(conditional_prob)
+            norm_prob = (conditional_prob * prob) / sum(conditional_prob)
             df[pos] = norm_prob
 
         return df

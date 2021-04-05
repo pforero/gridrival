@@ -2,6 +2,7 @@
 
 from gridrival.drivers import (
     Driver,
+    FixedInfo,
     AGiovinazzi,
     CLeclerc,
     CSainz,
@@ -70,10 +71,9 @@ class Team:
             Expected points earned by the Drivers in the qualifying stage.
         """
 
-        return (
-            self.driver_1.qualifying_points(team=True)
-            + self.driver_2.qualifying_points(team=True)
-        )
+        return self.driver_1.qualifying_points(
+            team=True
+        ) + self.driver_2.qualifying_points(team=True)
 
     def race_points(self) -> float:
         """Expected team points earned from the race stage.
@@ -86,9 +86,8 @@ class Team:
             Expected points earned by the Drivers in the race stage.
         """
 
-        return (
-            self.driver_1.race_points(team=True)
-            + self.driver_2.race_points(team=True)
+        return self.driver_1.race_points(team=True) + self.driver_2.race_points(
+            team=True
         )
 
     def points(self) -> float:
@@ -104,9 +103,18 @@ class Team:
 
         return self.driver_1.points(team=True) + self.driver_2.points(team=True)
 
+    def to_fixed_info(self) -> FixedInfo:
+        "Fix Team info for easy optimization."
+
+        return FixedInfo(name=self.name, cost=self.cost, points=self.points())
+
     def __contains__(self, driver: Driver) -> bool:
         "A Team contains a Driver if it is one of its two Drivers."
         return (self.driver_1 == driver) or (self.driver_2 == driver)
+
+    def __eq__(self, team: "Team") -> bool:
+        "Compare if two Teams are the same Team."
+        return self.name == team.name
 
     def __repr__(self) -> str:
         return self.name

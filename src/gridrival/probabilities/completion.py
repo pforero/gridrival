@@ -2,6 +2,7 @@
 
 from pandas import Series
 
+
 class CompletionProbabilities:
     """Probability of completing quartiles of the race.
 
@@ -20,4 +21,4 @@ class CompletionProbabilities:
         self.probabilities = prob
 
 
-COMPLETE_RACE = CompletionProbabilities(Series(1, index=range(1,5)))
+COMPLETE_RACE = CompletionProbabilities(Series(1, index=range(1, 5)))
