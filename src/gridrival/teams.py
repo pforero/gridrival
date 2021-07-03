@@ -120,16 +120,16 @@ class Team:
         return self.name
 
 
-Mercedes = Team("Mercedes", LHamilton, VBottas, 30 * 1e6)
-RedBull = Team("Red Bull", MVerstappen, SPerez, 27.2 * 1e6)
-McLaren = Team("McLaren", DRicciardo, LNorris, 24.4 * 1e6)
-AstonMartin = Team("Aston Martin", SVettel, LStroll, 20.2 * 1e6)
-Alpine = Team("Alpine", FAlonso, EOcon, 16.7 * 1e6)
-Ferrari = Team("Ferrari", CLeclerc, CSainz, 17.4 * 1e6)
-AlphaTauri = Team("AlphaTauri", PGasly, YTsunoda, 13.2 * 1e6)
-AlfaRomeo = Team("Alfa Romeo", KRaikkonen, AGiovinazzi, 12.5 * 1e6)
-Haas = Team("Haas", MSchumacher, NMazepin, 6.9 * 1e6)
-Williams = Team("Williams", GRUssell, NLatifi, 5.5 * 1e6)
+Mercedes = Team("Mercedes", LHamilton, VBottas, 25.3 * 1e6)
+RedBull = Team("Red Bull", MVerstappen, SPerez, 27.0 * 1e6)
+McLaren = Team("McLaren", DRicciardo, LNorris, 24.2 * 1e6)
+AstonMartin = Team("Aston Martin", SVettel, LStroll, 17.6 * 1e6)
+Alpine = Team("Alpine", FAlonso, EOcon, 17.0 * 1e6)
+Ferrari = Team("Ferrari", CLeclerc, CSainz, 20.5 * 1e6)
+AlphaTauri = Team("AlphaTauri", PGasly, YTsunoda, 17.3 * 1e6)
+AlfaRomeo = Team("Alfa Romeo", KRaikkonen, AGiovinazzi, 11.6 * 1e6)
+Haas = Team("Haas", MSchumacher, NMazepin, 5.9 * 1e6)
+Williams = Team("Williams", GRUssell, NLatifi, 7.5 * 1e6)
 
 TEAMS = [
     Mercedes,

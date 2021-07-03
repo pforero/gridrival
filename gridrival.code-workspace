@@ -5,7 +5,6 @@
 		}
 	],
 	"settings": {
-		"python.pythonPath": "/Users/pablof/anaconda3/bin/python",
 		"jupyter.jupyterServerType": "local",
 		"cSpell.userWords": [
 			"gridrival"
