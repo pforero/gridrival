@@ -37,7 +37,7 @@ class LeagueScoring:
 
         QUALIFYING = pd.Series({i: 52 - (i * 2) for i in range(1, 21)})
         RACE = pd.Series({i: 103 - (i * 3) for i in range(1, 21)})
-        COMPLETION = pd.Series(3, index=range(1, 5))
+        COMPLETION = pd.Series({i: i * 3 for i in range(0,5)})
         OVERTAKE = overtake_df
         BEAT_TEAMMATE = teammate_df
         PERSONAL_IMPROVEMENT = personal_improvement

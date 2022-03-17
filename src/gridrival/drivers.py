@@ -3,11 +3,8 @@ import copy
 
 from pandas import DataFrame, Series
 
-from gridrival.probabilities import DriverProbabilities
-from gridrival.probabilities.completion import COMPLETE_RACE, CompletionProbabilities
+from gridrival.probabilities import DriverProbabilities, DEFAULT_PROBABILITY
 from gridrival.scoring import LeagueScoring
-
-DEFAULT_PROBABILITY = DriverProbabilities(Series(1 / 20, index=range(1, 21)))
 
 
 class FixedInfo:
@@ -61,8 +58,6 @@ class Driver:
         Driver's rank given by the eight race rolling average.
     probabilities: DriverProbabilities
         Probabilities for where the Driver will finish in the next race.
-    completion_prob: CompletionProbabilities
-        Probabilities for completing the race.
 
     Methods
     -------
@@ -82,14 +77,12 @@ class Driver:
         cost: int,
         rank: int,
         probabilities: DriverProbabilities = DEFAULT_PROBABILITY,
-        completion: CompletionProbabilities = COMPLETE_RACE,
     ) -> None:
 
         self.name = name
         self.cost = cost
         self.rank = rank
         self.probabilities = probabilities
-        self.completion_prob = completion
 
     def qualifying_points(self, team=False) -> float:
         """Expected points earned from qualifying.
@@ -150,7 +143,7 @@ class Driver:
             Expected points earned by the driver from race completion.
         """
 
-        return sum(self.completion_prob.probabilities * LeagueScoring.Driver.COMPLETION)
+        return sum(self.probabilities.comp * LeagueScoring.Driver.COMPLETION)
 
     def overtake_points(self) -> float:
         """Expected points from overtaking.
@@ -278,26 +271,26 @@ class Driver:
         return self.name
 
 
-LHamilton = Driver("L. Hamilton", 27.9 * 1e6, 2)
-MVerstappen = Driver("M. Verstappen", 30.3 * 1e6, 1)
-VBottas = Driver("V. Bottas", 24.8 * 1e6, 5)
-SPerez = Driver("S. Perez", 27.0 * 1e6, 3)
-LNorris = Driver("L. Norris", 25.1 * 1e6, 4)
-DRicciardo = Driver("D. Ricciardo", 21.2 * 1e6, 9)
-CLeclerc = Driver("C. Leclerc", 22.1 * 1e6, 6)
-FAlonso = Driver("F. Alonso", 19.5 * 1e6, 10)
-CSainz = Driver("C. Sainz Jr", 21.5 * 1e6, 7)
-SVettel = Driver("S. Vettel", 18.3 * 1e6, 11)
-LStroll = Driver("L. Stroll", 15.4 * 1e6, 12)
-PGasly = Driver("P. Gasly", 21.3 * 1e6, 8)
-EOcon = Driver("E. Ocon", 14.6 * 1e6, 13)
-YTsunoda = Driver("Y. Tsunoda", 11.2 * 1e6, 16)
-KRaikkonen = Driver("K. Raikkonen", 12.9 * 1e6, 14)
-AGiovinazzi = Driver("A. Giovinazzi", 11.9 * 1e6, 15)
-GRUssell = Driver("G. Russell", 9.5 * 1e6, 17)
-MSchumacher = Driver("M. Schumacher", 6.3 * 1e6, 18)
-NLatifi = Driver("N. Latifi", 5.2 * 1e6, 19)
-NMazepin = Driver("N. Mazepin", 4.3 * 1e6, 20)
+LHamilton = Driver("L. Hamilton", 28.8 * 1e6, 2)
+MVerstappen = Driver("M. Verstappen", 30.4 * 1e6, 1)
+VBottas = Driver("V. Bottas", 26.2 * 1e6, 4)
+SPerez = Driver("S. Perez", 26.7 * 1e6, 3)
+LNorris = Driver("L. Norris", 20.1 * 1e6, 8)
+DRicciardo = Driver("D. Ricciardo", 18.6 * 1e6, 9)
+CLeclerc = Driver("C. Leclerc", 24.6 * 1e6, 5)
+FAlonso = Driver("F. Alonso", 18.0 * 1e6, 10)
+CSainz = Driver("C. Sainz Jr", 22.6 * 1e6, 6)
+SVettel = Driver("S. Vettel", 15.4 * 1e6, 11)
+LStroll = Driver("L. Stroll", 12.4 * 1e6, 15)
+PGasly = Driver("P. Gasly", 21.2 * 1e6, 7)
+EOcon = Driver("E. Ocon", 15.2 * 1e6, 12)
+YTsunoda = Driver("Y. Tsunoda", 9.8 * 1e6, 17)
+KRaikkonen = Driver("K. Raikkonen", 14.8 * 1e6, 13)
+AGiovinazzi = Driver("A. Giovinazzi", 13.0 * 1e6, 14)
+GRUssell = Driver("G. Russell", 12.1 * 1e6, 16)
+MSchumacher = Driver("M. Schumacher", 3.9 * 1e6, 20)
+NLatifi = Driver("N. Latifi", 7.5 * 1e6, 18)
+NMazepin = Driver("N. Mazepin", 4.0 * 1e6, 19)
 
 DRIVERS = [
     LHamilton,

@@ -21,9 +21,15 @@ class DriverProbabilities:
         Probabilities to end the qualifying stage in each grid position.
     """
 
-    def __init__(self, race: Series, qual: Optional[Series] = None) -> None:
+    def __init__(
+        self,
+        race: Series,
+        comp: Series,
+        qual: Optional[Series] = None
+    ) -> None:
 
         self.race = race
+        self.comp = comp
         if qual is None:
             self.qual = race
         else:
@@ -65,13 +71,19 @@ class GridProbabilities:
         Return the probabilities for a single Driver.
     """
 
-    def __init__(self, race: DataFrame, qual: Optional[DataFrame] = None) -> None:
+    def __init__(
+        self,
+        race: DataFrame,
+        comp: DataFrame,
+        qual: Optional[DataFrame] = None
+    ) -> None:
 
         self.race = race
         if qual is None:
             self.qual = race
         else:
             self.qual = qual
+        self.comp = comp
 
     def driver_probabilities(self, driver: str) -> DriverProbabilities:
         """Return the probabilities for a single Driver.
@@ -83,5 +95,17 @@ class GridProbabilities:
         """
 
         return DriverProbabilities(
-            race=self.race.loc[driver], qual=self.qual.loc[driver]
+            race=self.race.loc[driver],
+            comp= self.comp.loc[driver],
+            qual=self.qual.loc[driver]
         )
+
+
+COMPLETE_RACE = Series(0, index=range(0, 5))
+COMPLETE_RACE[4] = 1
+
+DEFAULT_PROBABILITY = DriverProbabilities(
+    race=Series(1 / 20, index=range(1, 21)),
+    qual=Series(1 / 20, index=range(1, 21)),
+    comp=Series(1, index=range(0, 5))
+)
